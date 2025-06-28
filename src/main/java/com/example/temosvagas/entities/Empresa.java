@@ -5,15 +5,11 @@ import lombok.*;
 
 import java.util.List;
 
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Empresa  extends Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(nullable = false, length = 100)
     private String nome;
