@@ -15,10 +15,13 @@ public class Empresa  extends Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 100)
     private String nome;
 
+    @Column(nullable = false, length = 150)
     private String razaoSocial;
 
+    @Column(nullable = false, length = 25, unique = true)
     private String cnpj;
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
