@@ -3,12 +3,14 @@ package com.example.temosvagas.mapper;
 import com.example.temosvagas.dtos.EmpresaResponseDTO;
 import com.example.temosvagas.entities.Empresa;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
 public class MapperGeral implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public static List<EmpresaResponseDTO> toEmpresaResponseList (List<Empresa> empresas) {
