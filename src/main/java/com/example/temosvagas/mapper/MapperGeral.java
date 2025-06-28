@@ -1,7 +1,9 @@
 package com.example.temosvagas.mapper;
 
 import com.example.temosvagas.dtos.EmpresaResponseDTO;
+import com.example.temosvagas.dtos.FilialResponseDTO;
 import com.example.temosvagas.entities.Empresa;
+import com.example.temosvagas.entities.Filial;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -20,6 +22,16 @@ public class MapperGeral implements Serializable {
 
         return empresas.stream()
                 .map(EmpresaResponseDTO::toDTO)
+                .toList();
+    }
+
+    public static List<FilialResponseDTO> toFilialResponseList (List<Filial> filiais) {
+        if (filiais == null || filiais.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return filiais.stream()
+                .map(FilialResponseDTO::toDTO)
                 .toList();
     }
 }
