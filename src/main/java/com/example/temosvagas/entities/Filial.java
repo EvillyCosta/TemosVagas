@@ -1,10 +1,16 @@
 package com.example.temosvagas.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Filial {
 
     @Id
@@ -18,7 +24,7 @@ public class Filial {
     private String endereco;
 
     @ManyToOne
-    @JoinColumn(name = "empresa_id")
+    @JoinColumn(nullable = false)
     private Empresa empresa;
 
     @OneToMany(mappedBy = "filial", cascade = CascadeType.ALL)
