@@ -11,7 +11,10 @@ public class Filial {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false, length = 100)
     private String nome;
+
+    @Column(nullable = false, length = 150)
     private String endereco;
 
     @ManyToOne
