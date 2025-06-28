@@ -18,19 +18,25 @@ public class Vaga {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 100)
     private String titulo;
 
     @Enumerated(EnumType.STRING)
     private TipoVaga tipo;
 
+    @Column(length = 255)
     private String requisitosMinimos;
 
+    @Column(nullable = false)
     private LocalDate dataLimite;
 
+    @Column(length = 100)
     private String curso;
 
+    @Column
     private Integer semestre;
 
+    @Column
     private Integer anoConclusao;
 
     @ManyToOne
