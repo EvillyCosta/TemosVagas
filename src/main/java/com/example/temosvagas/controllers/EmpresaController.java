@@ -35,7 +35,7 @@ public class EmpresaController {
      *
      * @param id o identificador da empresa a ser buscada
      * @return ResponseEntity com os dados da empresa encontrada e status 200 (OK)
-     * @throws `ResponseStatusException` com status 404 (Not Found) se a empresa não for encontrada
+     * @throws ResponseStatusException com status 404 (Not Found) se a empresa não for encontrada
      */
     @GetMapping("/{id}")
     public ResponseEntity<EmpresaResponseDTO> buscarPorId(@PathVariable Long id) {
