@@ -15,15 +15,15 @@ public class Candidato extends Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String nome;
 
     private String telefone;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "curriculo_id", nullable = false, unique = true)
-    private Curriculo curriculo;
+    private String url;
+    private Boolean cursandoGraduacao;  //para vagas de estágio
+    private Integer anoConclusao;       //para vagas de trainee
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL)
     private List<Candidatura> candidaturas;
 }
-
