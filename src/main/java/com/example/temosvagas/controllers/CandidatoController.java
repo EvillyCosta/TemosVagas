@@ -14,11 +14,11 @@ public class CandidatoController {
 
     private final CandidatoRepository candidatoRepository;
 
-    @PostMapping
-    public Candidato cadastrarCandidato(@RequestBody CandidatoDTO dto) {
-        Candidato candidato = new Candidato(null, dto.getNome(), dto.getEmail(), dto.getSenha(), dto.getTelefone(), dto.getLinkCurriculo(), null, null);
-        return candidatoRepository.save(candidato);
-    }
+//    @PostMapping
+//    public Candidato cadastrarCandidato(@RequestBody CandidatoDTO dto) {
+//        Candidato candidato = new Candidato(null, dto.getNome(), dto.getEmail(), dto.getSenha(), dto.getTelefone(), dto.getLinkCurriculo(), null, null);
+//        return candidatoRepository.save(candidato);
+//    }
 
     @GetMapping("/teste")
     public String teste() {

@@ -18,45 +18,48 @@ public class Vaga {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 100)
     private String titulo;
 
     @Enumerated(EnumType.STRING)
     private TipoVaga tipo;
 
-    private String requisitos;
+    @Column(length = 255)
+    private String requisitosMinimos;
 
+    @Column(nullable = false)
     private LocalDate dataLimite;
 
+    @Column(length = 100)
     private String curso;
 
+    @Column
     private Integer semestre;
 
+    @Column
     private Integer anoConclusao;
 
     @ManyToOne
-    private Empresa empresa;
+    @JoinColumn(name = "filial_id")
+    private Filial filial;
 
-    @ManyToMany
-    @JoinTable(
-            name = "vaga_candidatos",
-            joinColumns = @JoinColumn(name = "vaga_id"),
-            inverseJoinColumns = @JoinColumn(name = "candidato_id")
-    )
-    private List<Candidato> candidatos = new ArrayList<>();
+    @OneToMany(mappedBy = "vaga", cascade = CascadeType.ALL)
+    private List<Candidatura> candidaturas;
 
+    // será analisado
     //construtor personalizado
     public Vaga(Long id, String titulo, TipoVaga tipo, String requisitos,
                 LocalDate dataLimite, String curso, Integer semestre,
-                Integer anoConclusao, Empresa empresa) {
+                Integer anoConclusao, Filial filial) {
         this.id = id;
         this.titulo = titulo;
         this.tipo = tipo;
-        this.requisitos = requisitos;
+        this.requisitosMinimos = requisitos;
         this.dataLimite = dataLimite;
         this.curso = curso;
         this.semestre = semestre;
         this.anoConclusao = anoConclusao;
-        this.empresa = empresa;
-        this.candidatos = new ArrayList<>();
+        this.filial = filial;
+        this.candidaturas = new ArrayList<>();
     }
 }
