@@ -39,9 +39,9 @@ public class FilialContoller {
     /**
      * Busca uma filial pelo seu identificador único (ID).
      *
-     * @param id o identificador da filial a ser buscada
+     * @param idFilial o identificador da filial a ser buscada
      * @return ResponseEntity contendo os dados da filial encontrada e status 200 (OK)
-     * @throws ResponseStatusException com status 404 (Not Found) se a filial não for encontrada
+     * @throws org.springframework.web.server.ResponseStatusException com status 404 (Not Found) se a filial não for encontrada
      *
      * Exemplo de requisição:
      * GET /filiais/5
@@ -59,7 +59,7 @@ public class FilialContoller {
      * @param requestDTO os dados da nova filial enviados no corpo da requisição
      * @return ResponseEntity contendo os dados da filial criada e status 201 (Created)
      *
-     * @throws ResponseStatusException com status 404 (Not Found) caso a empresa não exista
+     * @throws org.springframework.web.server.ResponseStatusException com status 404 (Not Found) caso a empresa não exista
      *
      * Exemplo de requisição:
      * POST /filiais/empresa/3
@@ -86,7 +86,7 @@ public class FilialContoller {
      * @param requestDTO os novos dados da filial enviados no corpo da requisição
      * @return ResponseEntity contendo os dados atualizados da filial e status 200 (OK)
      *
-     * @throws ResponseStatusException com status 404 (Not Found) caso a filial não exista
+     * @throws org.springframework.web.server.ResponseStatusException com status 404 (Not Found) caso a filial não exista
      *
      * Exemplo de requisição:
      * PUT /filiais/12
@@ -110,7 +110,7 @@ public class FilialContoller {
      * @param id o identificador único da filial a ser deletada
      * @return ResponseEntity com status 204 (No Content) se a exclusão for bem-sucedida
      *
-     * @throws ResponseStatusException com status 404 (Not Found) caso a filial não exista
+     * @throws org.springframework.web.server.ResponseStatusException com status 404 (Not Found) caso a filial não exista
      *
      * Exemplo de requisição:
      * DELETE /filiais/12
