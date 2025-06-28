@@ -4,7 +4,6 @@ import com.example.temosvagas.dtos.EmpresaResponseDTO;
 import com.example.temosvagas.entities.Empresa;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
