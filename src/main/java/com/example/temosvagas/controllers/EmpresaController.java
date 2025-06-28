@@ -56,7 +56,7 @@ public class EmpresaController {
      */
     @PostMapping
     public ResponseEntity<EmpresaResponseDTO> criar(@RequestBody @Valid EmpresaRequestDTO dto) {
-        Empresa novaEmpresa = empresaService.criaEmpresa(dto.toEntity());
+        Empresa novaEmpresa = empresaService.criaEmpresa(dto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(EmpresaResponseDTO.toDTO(novaEmpresa));
@@ -73,7 +73,7 @@ public class EmpresaController {
     public ResponseEntity<EmpresaResponseDTO> atualizar(
             @PathVariable Long id,
             @RequestBody EmpresaRequestDTO dto) {
-        Empresa empresa = empresaService.atualizaEmpresa(dto.toEntity());
+        Empresa empresa = empresaService.atualizaEmpresa(id, dto);
         return ResponseEntity.ok(EmpresaResponseDTO.toDTO(empresa));
     }
 

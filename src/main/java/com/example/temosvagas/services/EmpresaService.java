@@ -1,5 +1,6 @@
 package com.example.temosvagas.services;
 
+import com.example.temosvagas.dtos.EmpresaRequestDTO;
 import com.example.temosvagas.entities.Empresa;
 import com.example.temosvagas.repositories.EmpresaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,21 @@ public class EmpresaService {
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Empresa não encontrada"));
     }
 
-    public Empresa criaEmpresa(Empresa empresa) {
-        return this.empresaRepository.save(empresa);
+    public Empresa criaEmpresa(EmpresaRequestDTO dto) {
+        Empresa novaEmpresa = dto.toEntity();
+        return this.empresaRepository.save(novaEmpresa);
     }
 
-    public Empresa atualizaEmpresa(Empresa empresa) {
+    public Empresa atualizaEmpresa(Long id, EmpresaRequestDTO dto) {
+        Empresa empresa = empresaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Empresa não encontrada"));
+
+        empresa.setNome(dto.nome());
+        empresa.setRazaoSocial(dto.razaoSocial());
+        empresa.setCnpj(dto.cnpj());
+        empresa.setEmail(dto.email());
+        empresa.setSenha(dto.senha());
+
         return this.empresaRepository.save(empresa);
     }
 
