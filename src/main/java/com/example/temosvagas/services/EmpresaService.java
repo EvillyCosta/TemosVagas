@@ -32,11 +32,9 @@ public class EmpresaService {
         return this.empresaRepository.save(empresa);
     }
 
-    public boolean deletaEmpresa(Long id) {
+    public void deletaEmpresa(Long id) {
         Empresa empresa = empresaRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Empresa não encontrada"));
         empresaRepository.delete(empresa);
-
-        return true;
     }
 }
