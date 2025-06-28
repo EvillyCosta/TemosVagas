@@ -1,7 +1,9 @@
 package com.example.temosvagas.services;
 
 import com.example.temosvagas.dtos.EmpresaRequestDTO;
+import com.example.temosvagas.dtos.EmpresaResponseDTO;
 import com.example.temosvagas.entities.Empresa;
+import com.example.temosvagas.mapper.MapperGeral;
 import com.example.temosvagas.repositories.EmpresaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,21 +18,26 @@ public class EmpresaService {
     @Autowired
     private EmpresaRepository empresaRepository;
 
-    public List<Empresa> buscaTodasEmpresas() {
-        return this.empresaRepository.findAll();
+    public List<EmpresaResponseDTO> buscaTodasEmpresas() {
+        List<Empresa> empresas = empresaRepository.findAll();
+        List<EmpresaResponseDTO> dtos = MapperGeral.toEmpresaResponseList(empresas);
+        return dtos;
     }
 
-    public Empresa buscaPorId(Long id) {
-        return empresaRepository.findById(id).orElseThrow(
+    public EmpresaResponseDTO buscaPorId(Long id) {
+        Empresa empresa = empresaRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Empresa não encontrada"));
+
+        return EmpresaResponseDTO.toDTO(empresa);
     }
 
-    public Empresa criaEmpresa(EmpresaRequestDTO dto) {
+    public EmpresaResponseDTO criaEmpresa(EmpresaRequestDTO dto) {
         Empresa novaEmpresa = dto.toEntity();
-        return this.empresaRepository.save(novaEmpresa);
+        Empresa salva = empresaRepository.save(novaEmpresa);
+        return EmpresaResponseDTO.toDTO(salva);
     }
 
-    public Empresa atualizaEmpresa(Long id, EmpresaRequestDTO dto) {
+    public EmpresaResponseDTO atualizaEmpresa(Long id, EmpresaRequestDTO dto) {
         Empresa empresa = empresaRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Empresa não encontrada"));
 
@@ -40,7 +47,9 @@ public class EmpresaService {
         empresa.setEmail(dto.email());
         empresa.setSenha(dto.senha());
 
-        return this.empresaRepository.save(empresa);
+        Empresa empresaSalva = this.empresaRepository.save(empresa);
+
+        return EmpresaResponseDTO.toDTO(empresaSalva);
     }
 
     public void deletaEmpresa(Long id) {
