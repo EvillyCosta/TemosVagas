@@ -18,6 +18,9 @@ public class Candidato extends Usuario {
     @Column(nullable = false, length = 20)
     private String telefone;
 
+    @Column(nullable = false, length = 10)
+    private String cpf;
+
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL)
     private List<Candidatura> candidaturas;
 }
