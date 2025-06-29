@@ -7,7 +7,13 @@ public record CandidatoResponseDTO(
         String nome,
         String email,
         String telefone,
-        String cpf
+        String cpf,
+        Boolean cursandoGraduacao,
+        Integer anoConclusao,
+        String habilidades,
+        String curso,
+        String semestreAtual,
+        String arquivo
 ) {
     public static CandidatoResponseDTO toDTO(Candidato candidato) {
         return new CandidatoResponseDTO(
@@ -15,7 +21,13 @@ public record CandidatoResponseDTO(
                 candidato.getEmail(),
                 candidato.getNome(),
                 candidato.getTelefone(),
-                candidato.getCpf()
+                candidato.getCpf(),
+                candidato.getCursandoGraduacao(),
+                candidato.getAnoConclusao(),
+                candidato.getHabilidades(),
+                candidato.getCurso(),
+                candidato.getSemestreAtual(),
+                candidato.getArquivo()
         );
     }
 }

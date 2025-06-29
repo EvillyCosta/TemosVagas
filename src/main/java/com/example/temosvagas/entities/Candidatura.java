@@ -18,14 +18,14 @@ public class Candidatura {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "candidato_id")
+    @JoinColumn(name = "candidato_id", nullable = false)
     private Candidato candidato;
 
     @ManyToOne
     @JoinColumn(name = "vaga_id")
     private Vaga vaga;
 
-    // Adiciona a data da criação da requisição como a data de aplicação
+    // Define a data atual como data de aplicação no momento da persistência
     @PrePersist
     public void prePersist() {
         this.dataAplicacao = LocalDate.now();

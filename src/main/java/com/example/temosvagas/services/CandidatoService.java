@@ -56,6 +56,22 @@ public class CandidatoService {
         return CandidatoResponseDTO.toDTO(candidatoSalvo);
     }
 
+    public CandidatoResponseDTO atualizaCurriculo(Long id, CandidatoRequestDTO dto) {
+        Candidato candidato = candidatoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidato não encontrado"));
+
+        candidato.setCursandoGraduacao(dto.cursandoGraduacao());
+        candidato.setAnoConclusao(dto.anoConclusao());
+        candidato.setHabilidades(dto.habilidades());
+        candidato.setCurso(dto.curso());
+        candidato.setSemestreAtual(dto.semestreAtual());
+        candidato.setArquivo(dto.arquivo());
+
+        Candidato candidatoSalvo = this.candidatoRepository.save(candidato);
+
+        return CandidatoResponseDTO.toDTO(candidatoSalvo);
+    }
+
     public void deletaCandidato(Long id) {
         Candidato candidato = candidatoRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidato não encontrado"));

@@ -23,7 +23,20 @@ public record CandidatoRequestDTO(
         String telefone,
 
         @NotBlank(message = "O CPF é obrigatório")
-        String cpf
+        String cpf,
+
+        Boolean cursandoGraduacao,
+
+        Integer anoConclusao,
+
+        String habilidades,
+
+        String curso,
+
+        String semestreAtual,
+
+        @Size(max = 150, message = "O nome do arquivo deve ter no máximo 150 caracteres")
+        String arquivo
 ) {
     public Candidato toEntity() {
         Candidato candidato = new Candidato();
@@ -32,6 +45,11 @@ public record CandidatoRequestDTO(
         candidato.setSenha(senha);
         candidato.setTelefone(telefone);
         candidato.setCpf(cpf);
+        candidato.setCursandoGraduacao(cursandoGraduacao);
+        candidato.setAnoConclusao(anoConclusao);
+        candidato.setHabilidades(habilidades);
+        candidato.setCurso(curso);
+        candidato.setSemestreAtual(semestreAtual);
         return candidato;
     }
 }
