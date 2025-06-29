@@ -1,0 +1,89 @@
+    INSERIR EM RELATORIO
+    @GetMapping("/{id}/candidatos")
+    //Empresa visualiza os candidatos inscritos em uma vaga
+    public ResponseEntity<?> listarCandidatosDaVaga(@PathVariable Long id) {
+        var vagaOpt = vagaRepository.findById(id);
+        if (vagaOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        var candidatos = vagaOpt.get().getCandidatos();
+        return ResponseEntity.ok(candidatos);
+    }
+
+    INSERIR EM OUTRA FEATURE
+        @PostMapping("/{id}/aplicar")
+        public ResponseEntity<?> aplicarVaga(@PathVariable Long id, @RequestParam Long idCandidato) {
+            var vagaOpt = vagaRepository.findById(id);
+            var candidatoOpt = candidatoRepository.findById(idCandidato);
+
+            if (vagaOpt.isEmpty() || candidatoOpt.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            var vaga = vagaOpt.get();
+            var candidato = candidatoOpt.get();
+
+            //impede inscrição após o prazo
+            if (vaga.getDataLimite().isBefore(LocalDate.now())) {
+                return ResponseEntity.badRequest().body("Prazo para aplicação encerrado.");
+            }
+
+            //impede inscrição duplicada
+            if (vaga.getCandidatos().contains(candidato)) {
+                return ResponseEntity.badRequest().body("Candidato já inscrito nesta vaga.");
+            }
+
+            //testes de consistência com base no tipo da vaga
+            switch (vaga.getTipo()) {
+                case ESTAGIO -> {
+                    if (candidato.getCursandoGraduacao() == null || !candidato.getCursandoGraduacao()) {
+                        return ResponseEntity.badRequest().body("Esta vaga é para estágio. Apenas candidatos cursando graduação podem se inscrever.");
+                    }
+                }
+                case TRAINEE -> {
+                    if (candidato.getAnoConclusao() == null) {
+                        return ResponseEntity.badRequest().body("Esta vaga é para trainee. Apenas candidatos com curso superior concluído podem se inscrever.");
+                    }
+                }
+                //vagas CARGO não precisam de validação extra no momento
+            }
+
+            vaga.getCandidatos().add(candidato);
+            vagaRepository.save(vaga);
+
+            return ResponseEntity.ok("Inscrição realizada com sucesso.");
+        }
+
+
+    INSERIR EM OUTRA FEATURE
+       @PutMapping("/{id}/prorrogar")
+        //Empresa prorroga data antes do encerramento
+        public ResponseEntity<?> prorrogarDataLimite(@PathVariable Long id, @RequestParam LocalDate novaDataLimite) {
+            var vagaOpt = vagaRepository.findById(id);
+            if (vagaOpt.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            var vaga = vagaOpt.get();
+
+            //Impede prorrogar se o prazo atual já expirou
+            if (vaga.getDataLimite().isBefore(LocalDate.now())) {
+                return ResponseEntity.badRequest().body("Não é possível prorrogar uma vaga cujo prazo já expirou.");
+            }
+
+            //Impede definir uma nova data no passado
+            if (novaDataLimite.isBefore(LocalDate.now())) {
+                return ResponseEntity.badRequest().body("A nova data limite deve ser uma data futura.");
+            }
+
+            vaga.setDataLimite(novaDataLimite);
+            vagaRepository.save(vaga);
+
+            return ResponseEntity.ok("Data limite prorrogada com sucesso.");
+        }
+    }
+
+
+
+

@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Vaga {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,9 +23,10 @@ public class Vaga {
     private String titulo;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TipoVaga tipo;
 
-    @Column(length = 255)
+    @Column(length = 200)
     private String requisitosMinimos;
 
     @Column(nullable = false)
@@ -34,32 +36,15 @@ public class Vaga {
     private String curso;
 
     @Column
-    private Integer semestre;
+    private String semestreDesejado;
 
     @Column
-    private Integer anoConclusao;
+    private String anoConclusao;
 
-    @ManyToOne
-    @JoinColumn(name = "filial_id")
+    @ManyToOne(optional = false)
+    @JoinColumn()
     private Filial filial;
 
-    @OneToMany(mappedBy = "vaga", cascade = CascadeType.ALL)
-    private List<Candidatura> candidaturas;
-
-    // será analisado
-    //construtor personalizado
-    public Vaga(Long id, String titulo, TipoVaga tipo, String requisitos,
-                LocalDate dataLimite, String curso, Integer semestre,
-                Integer anoConclusao, Filial filial) {
-        this.id = id;
-        this.titulo = titulo;
-        this.tipo = tipo;
-        this.requisitosMinimos = requisitos;
-        this.dataLimite = dataLimite;
-        this.curso = curso;
-        this.semestre = semestre;
-        this.anoConclusao = anoConclusao;
-        this.filial = filial;
-        this.candidaturas = new ArrayList<>();
-    }
+    @OneToMany(mappedBy = "vaga", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Candidatura> candidaturas = new ArrayList<>();
 }
