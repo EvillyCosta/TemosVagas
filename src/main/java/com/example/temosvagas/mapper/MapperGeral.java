@@ -1,7 +1,9 @@
 package com.example.temosvagas.mapper;
 
+import com.example.temosvagas.dtos.CandidatoResponseDTO;
 import com.example.temosvagas.dtos.EmpresaResponseDTO;
 import com.example.temosvagas.dtos.FilialResponseDTO;
+import com.example.temosvagas.entities.Candidato;
 import com.example.temosvagas.entities.Empresa;
 import com.example.temosvagas.entities.Filial;
 
@@ -32,6 +34,16 @@ public class MapperGeral implements Serializable {
 
         return filiais.stream()
                 .map(FilialResponseDTO::toDTO)
+                .toList();
+    }
+
+    public static List<CandidatoResponseDTO> toCandidatoResponseList (List<Candidato> candidatos) {
+        if (candidatos == null || candidatos.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return candidatos.stream()
+                .map(CandidatoResponseDTO::toDTO)
                 .toList();
     }
 }
