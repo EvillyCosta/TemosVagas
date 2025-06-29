@@ -3,9 +3,11 @@ package com.example.temosvagas.mapper;
 import com.example.temosvagas.dtos.CandidatoResponseDTO;
 import com.example.temosvagas.dtos.EmpresaResponseDTO;
 import com.example.temosvagas.dtos.FilialResponseDTO;
+import com.example.temosvagas.dtos.VagaResponseDTO;
 import com.example.temosvagas.entities.Candidato;
 import com.example.temosvagas.entities.Empresa;
 import com.example.temosvagas.entities.Filial;
+import com.example.temosvagas.entities.Vaga;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -44,6 +46,16 @@ public class MapperGeral implements Serializable {
 
         return candidatos.stream()
                 .map(CandidatoResponseDTO::toDTO)
+                .toList();
+    }
+
+    public static List<VagaResponseDTO> toVagaResponseList (List<Vaga> vagas) {
+        if (vagas == null || vagas.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return vagas.stream()
+                .map(VagaResponseDTO::toDTO)
                 .toList();
     }
 }
