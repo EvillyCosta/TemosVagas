@@ -1,4 +1,4 @@
-package com.example.temosvagas.controllers;
+package com.example.temosvagas.contexts.auth;
 
 import com.example.temosvagas.dtos.LoginDTO;
 import com.example.temosvagas.dtos.LoginResponseDTO;

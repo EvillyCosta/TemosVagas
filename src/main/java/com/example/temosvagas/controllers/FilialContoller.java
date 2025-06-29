@@ -99,7 +99,7 @@ public class FilialContoller {
     @PutMapping("/{idFilial}")
     public ResponseEntity<FilialResponseDTO> atualizar(
             @PathVariable Long idFilial,
-            @RequestBody FilialRequestDTO requestDTO) {
+            @RequestBody @Valid FilialRequestDTO requestDTO) {
         FilialResponseDTO responseDTO = filialService.atualizarFilial(idFilial, requestDTO);
         return ResponseEntity.ok(responseDTO);
     }
