@@ -55,6 +55,19 @@
 Status `201 Created`  
 No banco, a senha estará salva em formato hash (BCrypt).
 
+Dica: Antes de cadastrar a Vaga, certifique-se de ter a Filial da empresa já cadastrada e ter em mãos seu ID e o ID da empresa.
+
+POST de Filial: `http://localhost:8081/TemosVagas/api/filiais/empresa/{idempresa}`
+
+```json
+{
+  "nome": "Filial Parelheiros",
+  "localizacao": "São Paulo - SP",
+  "endereco": "Rua Batolomeu, 123, São Paulo - SP"
+}
+```
+(Necessita de Basic Auth para dar certo, explicado no próximo passo)
+
 ## 2. Cadastro de vaga (sem autenticação)
 
 **URL:**  
@@ -89,6 +102,7 @@ No Postman, na aba **Authorization**:
 - **Password:** senhaSegura456  
 
 Faça o mesmo POST do cadastro de vaga acima.
+
 
 **Esperado:**  
 Status 201 Created
