@@ -1,7 +1,5 @@
-package com.example.temosvagas.contexts.auth;
+package com.example.temosvagas.contexts.autenticacao;
 
-import com.example.temosvagas.dtos.LoginDTO;
-import com.example.temosvagas.dtos.LoginResponseDTO;
 import com.example.temosvagas.entities.Candidato;
 import com.example.temosvagas.entities.Empresa;
 import com.example.temosvagas.repositories.CandidatoRepository;
@@ -12,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
+public class AutenticacaoController {
 
     @Autowired
     private CandidatoRepository candidatoRepo;
@@ -21,14 +19,14 @@ public class AuthController {
     private EmpresaRepository empresaRepo;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<?> login(@RequestBody AutenticacaoResquestDTO autenticacaoResquestDTO) {
 
         //verifica se é candidato
-        var candidatoOpt = candidatoRepo.findByEmail(loginDTO.getEmail());
+        var candidatoOpt = candidatoRepo.findByEmail(autenticacaoResquestDTO.getEmail());
         if (candidatoOpt.isPresent()) {
             Candidato candidato = candidatoOpt.get();
-            if (candidato.getSenha().equals(loginDTO.getSenha())) {
-                return ResponseEntity.ok(new LoginResponseDTO(
+            if (candidato.getSenha().equals(autenticacaoResquestDTO.getSenha())) {
+                return ResponseEntity.ok(new AutenticacaoResponseDTO(
                         candidato.getId(),
                         candidato.getNome(),
                         candidato.getEmail(),
@@ -38,11 +36,11 @@ public class AuthController {
         }
 
         //verifica se é empresa
-        var empresaOpt = empresaRepo.findByEmail(loginDTO.getEmail());
+        var empresaOpt = empresaRepo.findByEmail(autenticacaoResquestDTO.getEmail());
         if (empresaOpt.isPresent()) {
             Empresa empresa = empresaOpt.get();
-            if (empresa.getSenha().equals(loginDTO.getSenha())) {
-                return ResponseEntity.ok(new LoginResponseDTO(
+            if (empresa.getSenha().equals(autenticacaoResquestDTO.getSenha())) {
+                return ResponseEntity.ok(new AutenticacaoResponseDTO(
                         empresa.getId(),
                         empresa.getNome(),
                         empresa.getEmail(),
