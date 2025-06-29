@@ -81,6 +81,23 @@ public class VagaService {
         return VagaResponseDTO.toDTO(atualizada);
     }
 
+    public void prorrogarDataLimite(Long id, LocalDate novaDataLimite) {
+        Vaga vaga = vagaRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Vaga não encontrada"));
+
+        if (vaga.getDataLimite().isBefore(LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Não é possível prorrogar uma vaga cujo prazo já expirou.");
+        }
+
+        if (novaDataLimite.isBefore(LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A nova data limite deve ser uma data futura.");
+        }
+
+        vaga.setDataLimite(novaDataLimite);
+        vagaRepository.save(vaga);
+    }
+
+
     public void deletarVaga(Long id) {
         Vaga vaga = vagaRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Vaga não encontrada"));
