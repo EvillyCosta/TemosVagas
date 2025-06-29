@@ -72,6 +72,21 @@ public class CandidatoController {
     }
 
     /**
+     * Atualiza os dados de um do curriculo de um candidato existente com base no ID informado.
+     *
+     * @param id o identificador único do candidato a ser atualizado (vindo da URL)
+     * @param requestDTO os dados do candidato enviados no corpo da requisição
+     * @return ResponseEntity com os dados atualizados do candidato e status 200 (OK)
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<CandidatoResponseDTO> atualizarCurriculo(
+            @PathVariable Long id,
+            @RequestBody @Valid CandidatoRequestDTO requestDTO) {
+        CandidatoResponseDTO responseDTO = candidatoService.atualizaCurriculo(id, requestDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    /**
      * Deleta o candidato por ID fornecido
      * @param id o identificador único do candidato a ser deletado
      * @return ResponseEntity com status 204 (No Content) se a exclusão for bem-sucedida
