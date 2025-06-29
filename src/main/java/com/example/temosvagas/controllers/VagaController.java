@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -82,6 +83,21 @@ public class VagaController {
             @RequestBody @Valid VagaRequestDTO requestDTO) {
         VagaResponseDTO responseDTO = vagaService.atualizarVaga(id, requestDTO);
         return ResponseEntity.ok(responseDTO);
+    }
+
+    /**
+     * Prorroga a data limite de uma vaga, desde que a vaga ainda esteja em aberto.
+     *
+     * @param id o ID da vaga a ser prorrogada
+     * @param novaDataLimite nova data limite desejada
+     * @return mensagem de sucesso ou erro
+     */
+    @PutMapping("/{id}/prorrogar")
+    public ResponseEntity<String> prorrogarDataLimite(
+            @PathVariable Long id,
+            @RequestParam LocalDate novaDataLimite) {
+        vagaService.prorrogarDataLimite(id, novaDataLimite);
+        return ResponseEntity.ok("Data limite prorrogada com sucesso.");
     }
 
     /**
