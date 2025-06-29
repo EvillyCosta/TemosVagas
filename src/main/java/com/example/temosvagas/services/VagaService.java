@@ -48,6 +48,11 @@ public class VagaService {
         Filial filial = filialRepository.findById(dto.filialId()).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Filial não encontrada"));
 
+        //verifica se a filial pertence à empresa informada
+        if (!filial.getEmpresa().getId().equals(dto.empresaId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A filial informada não pertence à empresa especificada.");
+        }
+
         if (dto.dataLimite() == null || dto.dataLimite().isBefore(LocalDate.now())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A data limite deve ser uma data futura.");
         }
@@ -65,6 +70,10 @@ public class VagaService {
 
         Filial filial = filialRepository.findById(dto.filialId()).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Filial não encontrada"));
+
+        if (!filial.getEmpresa().getId().equals(dto.empresaId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A filial informada não pertence à empresa especificada.");
+        }
 
         validarTipoVaga(dto);
 

@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Empresa  extends Usuario {
+    private static final long serialVersionUID = 3L;
 
     @Column(nullable = false, length = 100)
     private String nome;

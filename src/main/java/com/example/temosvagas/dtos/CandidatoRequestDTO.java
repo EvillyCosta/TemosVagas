@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.io.Serializable;
+
 public record CandidatoRequestDTO(
         @NotBlank(message = "O nome é obrigatório")
         @Size(max = 100, message = "O nome deve ter no máximo 100 caracteres")
@@ -37,7 +39,9 @@ public record CandidatoRequestDTO(
 
         @Size(max = 150, message = "O nome do arquivo deve ter no máximo 150 caracteres")
         String arquivo
-) {
+) implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public Candidato toEntity() {
         Candidato candidato = new Candidato();
         candidato.setNome(nome);

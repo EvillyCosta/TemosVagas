@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/filiais")
-public class FilialContoller {
+public class FilialController {
 
     @Autowired
     private FilialService filialService;

@@ -78,7 +78,7 @@ public class CandidatoController {
      * @param requestDTO os dados do candidato enviados no corpo da requisição
      * @return ResponseEntity com os dados atualizados do candidato e status 200 (OK)
      */
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/curriculo")
     public ResponseEntity<CandidatoResponseDTO> atualizarCurriculo(
             @PathVariable Long id,
             @RequestBody @Valid CandidatoRequestDTO requestDTO) {

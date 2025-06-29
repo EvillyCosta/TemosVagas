@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface VagaRepository extends JpaRepository<Vaga, Long> {
-    List<Vaga> findByEmpresaId(Long empresaId);
+
+    List<Vaga> findByFilialEmpresaId(Long empresaId);
 
     List<Vaga> findByDataLimiteAfter(LocalDate data);
 

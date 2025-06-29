@@ -7,6 +7,7 @@ import com.example.temosvagas.mapper.MapperGeral;
 import com.example.temosvagas.repositories.CandidatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder; // IMPORTANTE
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,6 +18,9 @@ public class CandidatoService {
 
     @Autowired
     private CandidatoRepository candidatoRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder; // IMPORTANTE
 
     public List<CandidatoResponseDTO> buscaTodosCandidatos() {
         List<Candidato> candidatos = candidatoRepository.findAll();
@@ -32,12 +36,17 @@ public class CandidatoService {
     }
 
     public CandidatoResponseDTO criaCandidato(CandidatoRequestDTO dto) {
-        Candidato novoCandidato = dto.toEntity();
-        if (candidatoRepository.existsByEmail((dto.email()))) {
+        if (candidatoRepository.existsByEmail(dto.email())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "E-mail já cadastrado");
-        } else if (candidatoRepository.existsByCpf((dto.cpf()))) {
+        } else if (candidatoRepository.existsByCpf(dto.cpf())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CPF já cadastrado");
         }
+
+        Candidato novoCandidato = dto.toEntity();
+
+        // Aqui criptografa a senha
+        novoCandidato.setSenha(passwordEncoder.encode(dto.senha()));
+
         Candidato salvo = candidatoRepository.save(novoCandidato);
         return CandidatoResponseDTO.toDTO(salvo);
     }

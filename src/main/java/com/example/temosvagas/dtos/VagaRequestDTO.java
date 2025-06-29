@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 public record VagaRequestDTO(
@@ -32,8 +33,14 @@ public record VagaRequestDTO(
         String anoConclusao,
 
         @NotNull(message = "O ID da filial é obrigatório")
-        Long filialId
-){
+        Long filialId,
+
+        @NotNull(message = "O ID da empresa é obrigatório")
+        Long empresaId  //novo campo obrigatório
+
+
+) implements Serializable {
+    private static final long serialVersionUID = 13L;
     public Vaga toEntity(Filial filial) {
         Vaga vaga = new Vaga();
         vaga.setTitulo(titulo);

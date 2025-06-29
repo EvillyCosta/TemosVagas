@@ -5,13 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Candidatura {
+public class Candidatura implements Serializable {
+    private static final long serialVersionUID = 4L;
 
     @Id
     @GeneratedValue

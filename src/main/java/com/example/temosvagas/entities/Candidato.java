@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Candidato extends Usuario {
+    private static final long serialVersionUID = 2L;
 
     @Column(nullable = false, length = 100)
     private String nome;
@@ -18,7 +19,7 @@ public class Candidato extends Usuario {
     @Column(nullable = false, length = 20)
     private String telefone;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 12)
     private String cpf;
 
     // Vagas de Estágio

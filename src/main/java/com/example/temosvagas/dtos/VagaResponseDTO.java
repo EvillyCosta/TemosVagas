@@ -3,6 +3,7 @@ package com.example.temosvagas.dtos;
 import com.example.temosvagas.entities.Vaga;
 import com.example.temosvagas.enums.TipoVaga;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 public record VagaResponseDTO(
@@ -15,7 +16,8 @@ public record VagaResponseDTO(
         String semestreDesejado,
         String anoConclusao,
         Long filialId
-) {
+) implements Serializable {
+    private static final long serialVersionUID = 14L;
     public static VagaResponseDTO toDTO(Vaga vaga) {
         return new VagaResponseDTO(
                 vaga.getId(),

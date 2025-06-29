@@ -4,6 +4,7 @@ import com.example.temosvagas.entities.Candidatura;
 
 import java.time.LocalDate;
 
+import java.io.Serializable;
 public record CandidaturaResponseDTO(
         Long id,
         LocalDate dataAplicacao,
@@ -12,7 +13,8 @@ public record CandidaturaResponseDTO(
         String nomeCandidato,
         Long vagaId,
         String tituloVaga
-) {
+) implements Serializable {
+    private static final long serialVersionUID = 8L;
     public static CandidaturaResponseDTO toDTO(Candidatura candidatura) {
         return new CandidaturaResponseDTO(
                 candidatura.getId(),

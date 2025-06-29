@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.io.Serializable;
+
 public record EmpresaRequestDTO(
         @NotBlank
         @Size(max = 100)
@@ -24,7 +26,8 @@ public record EmpresaRequestDTO(
         @NotBlank
         @Size(min = 6, max = 100)
         String senha
-) {
+) implements Serializable {
+        private static final long serialVersionUID = 9L;
         public Empresa toEntity() {
                 Empresa empresa = new Empresa();
                 empresa.setNome(this.nome);

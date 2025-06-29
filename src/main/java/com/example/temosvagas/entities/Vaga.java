@@ -5,6 +5,7 @@ import com.example.temosvagas.enums.TipoVaga;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vaga {
+public class Vaga implements Serializable {
+    private static final long serialVersionUID = 6L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
