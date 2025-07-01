@@ -54,6 +54,7 @@ public record CandidatoRequestDTO(
         candidato.setHabilidades(habilidades);
         candidato.setCurso(curso);
         candidato.setSemestreAtual(semestreAtual);
+        candidato.setArquivo("");
         return candidato;
     }
 }
