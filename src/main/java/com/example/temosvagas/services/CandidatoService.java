@@ -22,6 +22,7 @@ public class CandidatoService {
     @Autowired
     private PasswordEncoder passwordEncoder; // IMPORTANTE
 
+
     public List<CandidatoResponseDTO> buscaTodosCandidatos() {
         List<Candidato> candidatos = candidatoRepository.findAll();
         List<CandidatoResponseDTO> dtos = MapperGeral.toCandidatoResponseList(candidatos);
@@ -59,22 +60,6 @@ public class CandidatoService {
         candidato.setEmail(dto.email());
         candidato.setTelefone(dto.telefone());
         candidato.setCpf(dto.cpf());
-
-        Candidato candidatoSalvo = this.candidatoRepository.save(candidato);
-
-        return CandidatoResponseDTO.toDTO(candidatoSalvo);
-    }
-
-    public CandidatoResponseDTO atualizaCurriculo(Long id, CandidatoRequestDTO dto) {
-        Candidato candidato = candidatoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidato não encontrado"));
-
-        candidato.setCursandoGraduacao(dto.cursandoGraduacao());
-        candidato.setAnoConclusao(dto.anoConclusao());
-        candidato.setHabilidades(dto.habilidades());
-        candidato.setCurso(dto.curso());
-        candidato.setSemestreAtual(dto.semestreAtual());
-        candidato.setArquivo(dto.arquivo());
 
         Candidato candidatoSalvo = this.candidatoRepository.save(candidato);
 
