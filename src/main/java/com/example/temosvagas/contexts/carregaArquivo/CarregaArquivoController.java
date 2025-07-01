@@ -14,11 +14,12 @@ public class CarregaArquivoController {
     private CarregaArquivoService carregaArquivoService;
 
     /**
-     * Atualiza os dados de um do curriculo de um candidato existente com base no ID informado.
+     * Atualiza o currículo de um candidato existente com base no ID do candidato.
+     * O novo arquivo enviado substitui o currículo anterior, sendo armazenado em um bucket S3.
      *
-     * @param id o identificador único do candidato a ser atualizado (vindo da URL)
-     * @param arquivo os dados do candidato enviados no corpo da requisição
-     * @return ResponseEntity com os dados atualizados do candidato e status 200 (OK)
+     * @param id o identificador único do candidato cujo currículo será atualizado (enviado como parâmetro de requisição)
+     * @param arquivo o novo arquivo de currículo enviado como multipart/form-data
+     * @return ResponseEntity contendo os dados atualizados do candidato e status HTTP 200 (OK)
      */
     @PutMapping(consumes = "multipart/form-data")
     public ResponseEntity<CandidatoResponseDTO> atualizarArquivoCurriculo(
